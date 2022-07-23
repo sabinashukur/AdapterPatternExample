@@ -7,7 +7,7 @@ interface IBird
 }
 class Sparrow : IBird
 {
-    // a concrete implementation of bird
+    // this a concrete implementation of bird
     public void Fly()
     {
         Console.WriteLine(" Sparrow is Flying");
@@ -19,7 +19,7 @@ class Sparrow : IBird
 }
 class Parrot : IBird
 {
-    // a concrete implementation of bird
+    // this is a concrete implementation of bird
     public void Fly()
     {
         Console.WriteLine("Parrot is Flying");
@@ -32,7 +32,7 @@ class Parrot : IBird
 
 interface IToyDuck
 {
-    // target interface,toyducks dont fly they just make squeaking sound
+    // our target interface, toyducks don't fly they just make squeaking sound
     public void Squeak();
 }
 class PlasticToyDuck : IToyDuck
@@ -44,6 +44,7 @@ class PlasticToyDuck : IToyDuck
 }
 class BirdAdapter : IToyDuck
 {
+    // We need to implement the interface our client expects to use.
     public IBird bird;
     public BirdAdapter(IBird bird)
     {
@@ -61,18 +62,21 @@ class Program
     {
         var sparrow = new Sparrow();
         var parrot = new Parrot();
-        var toyDuck = new PlasticToyDuck();
-        var birdAdapter1 = new BirdAdapter(sparrow);
-        var birdAdapter2 = new BirdAdapter(parrot);
+       
         Console.WriteLine("Sparrow...");
         sparrow.Fly();
         sparrow.MakeSound();
         Console.WriteLine("Parrot...");
         parrot.Fly();
         parrot.MakeSound();
+        IToyDuck toyDuck = new PlasticToyDuck();
+        // We wrap a bird in a birdAdapter so that it behaves like toy duck
+        IToyDuck birdAdapter1 = new BirdAdapter(sparrow);
+        IToyDuck birdAdapter2 = new BirdAdapter(parrot);
         Console.WriteLine("ToyDuck...");
         toyDuck.Squeak();
         Console.WriteLine("BirdAdapter...");
+        // Here toy duck is behaving like a bird 
         birdAdapter1.Squeak();
         birdAdapter2.Squeak();
     }
